@@ -193,6 +193,7 @@ class _HomePageState extends State<HomePage>
                       color: Colors.pink, fontSize: ScreenUtil().setSp(26)),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text('￥${val['mallPrice']}'),
                     Text(
@@ -287,6 +288,7 @@ class TopNavigator extends StatelessWidget {
       height: ScreenUtil().setHeight(300),
       padding: EdgeInsets.all(3.0),
       child: GridView.count(
+//        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 5,
         padding: EdgeInsets.all(4.0),
         children: navigatorList.map((item) {
@@ -381,6 +383,7 @@ class Recommend extends StatelessWidget {
             color: Colors.white,
             border: Border(left: BorderSide(width: 1, color: Colors.black12))),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.network(recommendList[index]['image']),
             Text('￥${recommendList[index]['mallPrice']}'),
