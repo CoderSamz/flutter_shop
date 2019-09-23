@@ -1,5 +1,8 @@
 # flutter_shop
-<<<<<<< HEAD
+跟着网上教程敲代码的成果，教程 => https://jspang.com/posts/2019/03/01/flutter-shop.html
+
+======================================================================================
+# flutter_shop
 
 A new Flutter project.
 
@@ -15,6 +18,3 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-=======
-跟着网上教程敲代码的成果，教程 => https://jspang.com/posts/2019/03/01/flutter-shop.html
->>>>>>> 5ddbab9559c45680ffd33ec2dba56c422b5a9447
