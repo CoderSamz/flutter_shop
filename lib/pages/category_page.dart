@@ -63,7 +63,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   void initState() {
     // TODO: implement initState
     _getCategory();
-    _getGoodList();
+    _getGoodsList();
     super.initState();
   }
 
@@ -93,8 +93,8 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         var childList = list[index].bxMallSubDto;
         var categoryId = list[index].mallCategoryId;
 
-        Provide.value<ChildCategory>(context).getChildCategory(childList);
-        _getGoodList(categoryId: categoryId);
+        Provide.value<ChildCategory>(context).getChildCategory(childList, categoryId);
+        _getGoodsList(categoryId: categoryId);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
@@ -122,14 +122,14 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
       });
 
       Provide.value<ChildCategory>(context)
-          .getChildCategory(list[0].bxMallSubDto);
+          .getChildCategory(list[0].bxMallSubDto, list[0].mallCategoryId);
 //      print(list[0].bxMallSubDto);
 //      list[0].bxMallSubDto.forEach((item) => print('item.mallSubName = '+item.mallSubName));
     });
   }
 
   // 获得类别商品列表数据
-  void _getGoodList({String categoryId}) async {
+  void _getGoodsList({String categoryId}) async {
     var data = {
       'category': categoryId == null ? '4' : categoryId,
       'categorySubId': "",
@@ -184,6 +184,7 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
     return InkWell(
       onTap: () {
         Provide.value<ChildCategory>(context).changeChildIndex(index);
+        _getGoodsList(categorySubId: item.mallSubId);
       },
       child: Container(
 
@@ -195,6 +196,22 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
         color: isCheck ? Colors.pink : Colors.white,
       ),
     );
+  }
+
+  void _getGoodsList({String categorySubId}) async {
+    var data = {
+      'category': Provide.value<ChildCategory>(context).categoryId,
+      'categorySubId': categorySubId,
+      'page': 1
+    };
+
+    await request('getMallGoods', formData: data).then((val) {
+
+      var data = json.decode(val.toString());
+      CategoryGoodsListModel goodsList = CategoryGoodsListModel.fromJson(data);
+      Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
+
+    });
   }
 }
 
@@ -299,5 +316,4 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       ),
     );
   }
-
 }
