@@ -24,17 +24,14 @@ class ChildCategory with ChangeNotifier {
     categoryId = id;
     childIndex = 0;
 
-    // --------------关键代码start
     page = 1;
     noMoreText = '';
-    // --------------关键代码end
 
     // 点击大类时，把子类ID清空
     subId = '';
 
-
     BxMallSubDto all = BxMallSubDto();
-    all.mallSubId = '00';
+    all.mallSubId = '';
     all.mallCategoryId = '00';
     all.mallSubName = '全部';
     all.comments = 'null';
@@ -51,11 +48,9 @@ class ChildCategory with ChangeNotifier {
     childIndex = index;
     subId = id;
 
-    // --------------关键代码start
     page = 1;
     // 显示更多的表示
     noMoreText = '';
-    // --------------关键代码end
 
     notifyListeners();
   }
