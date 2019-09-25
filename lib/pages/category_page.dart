@@ -183,7 +183,7 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
 
     return InkWell(
       onTap: () {
-        Provide.value<ChildCategory>(context).changeChildIndex(index);
+        Provide.value<ChildCategory>(context).changeChildIndex(index, item.mallSubId);
         _getGoodsList(categorySubId: item.mallSubId);
       },
       child: Container(
@@ -209,7 +209,12 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
 
       var data = json.decode(val.toString());
       CategoryGoodsListModel goodsList = CategoryGoodsListModel.fromJson(data);
-      Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
+      if(goodsList.data == null) {
+        Provide.value<CategoryGoodsListProvide>(context).getGoodsList([]);
+      }else {
+        Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
+      }
+
 
     });
   }
@@ -234,7 +239,8 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   Widget build(BuildContext context) {
     return Provide<CategoryGoodsListProvide> (
       builder: (context, child, data) {
-        return Expanded(
+        if(data.goodsList.length > 0) {
+          return Expanded(
             child: Container(
               width: ScreenUtil().setWidth(570),
               child: ListView.builder(
@@ -243,7 +249,11 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
                     return _listWidget(data.goodsList, index);
                   }),
             ),
-        );
+          );
+        }else{
+          return Text('暂时没有数据');
+        }
+
       },
     );
   }
