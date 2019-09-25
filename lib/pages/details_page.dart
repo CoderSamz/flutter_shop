@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 
 class DetailsPage extends StatelessWidget {
 
@@ -7,6 +8,9 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final router = Router();
+
     return Container(
       child: Text('商品ID为：${goodsId}'),
     );
