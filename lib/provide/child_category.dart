@@ -5,7 +5,9 @@ import '../model/category.dart';
 class ChildCategory with ChangeNotifier {
 
   List<BxMallSubDto> childCategoryList = [];
+  int childIndex = 0;
 
+  // 点击大类时更换
   getChildCategory(List<BxMallSubDto> list) {
 
     BxMallSubDto all = BxMallSubDto();
@@ -15,6 +17,12 @@ class ChildCategory with ChangeNotifier {
     all.comments = 'null';
     childCategoryList = [all];
     childCategoryList.addAll(list);
+    notifyListeners();
+  }
+
+  // 改变子类索引
+  changeChildIndex(index) {
+    childIndex = index;
     notifyListeners();
   }
 }
