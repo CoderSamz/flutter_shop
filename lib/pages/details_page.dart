@@ -9,7 +9,7 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final router = Router();
+//    final router = Router();
 
     return Container(
       child: Text('商品ID为：${goodsId}'),
