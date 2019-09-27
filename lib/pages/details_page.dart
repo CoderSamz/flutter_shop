@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluro/fluro.dart';
+import 'package:provide/provide.dart';
+import '../provide/details_info.dart';
 
 class DetailsPage extends StatelessWidget {
 
@@ -8,11 +9,14 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-//    final router = Router();
-
+    _getBackInfo(context);
     return Container(
       child: Text('商品ID为：${goodsId}'),
     );
+  }
+
+  void _getBackInfo(BuildContext context) async {
+    await Provide.value<DetailsInfoProvide>(context).getGoodsInfo(goodsId);
+    print('加载完成...................');
   }
 }

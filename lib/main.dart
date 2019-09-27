@@ -7,7 +7,6 @@ import './provide/child_category.dart';
 import './provide/category_goods_list.dart';
 import 'package:fluro/fluro.dart';
 import './routers/routes.dart';
-import './routers/router_handler.dart';
 
 
 //void main() => runApp(MyApp());
