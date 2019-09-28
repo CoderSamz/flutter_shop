@@ -256,6 +256,9 @@ class SwiperDiy extends StatelessWidget {
         itemCount: swiperDataList.length,
         pagination: new SwiperPagination(),
         autoplay: true,
+        onTap: (index){
+          Application.router.navigateTo(context,"/detail?id=${swiperDataList[index]['goodsId']}");
+        },
       ),
     );
   }
@@ -348,9 +351,10 @@ class LeaderPhone extends StatelessWidget {
 class Recommend extends StatelessWidget {
   final List recommendList;
   Recommend({Key key, this.recommendList}) : super(key: key);
-
+  BuildContext context;
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     return Container(
       height: ScreenUtil().setHeight(400),
       margin: EdgeInsets.only(top: 10.0),
@@ -376,7 +380,9 @@ class Recommend extends StatelessWidget {
   // 推荐商品item
   Widget _item(index) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Application.router.navigateTo(context,"/detail?id=${recommendList[index]['goodsId']}");
+      },
       child: Container(
         height: ScreenUtil().setHeight(330),
         width: ScreenUtil().setWidth(250),
@@ -434,9 +440,10 @@ class FloorTitle extends StatelessWidget {
 class FloorContent extends StatelessWidget {
   final List floorGoodsList;
   FloorContent({Key key, this.floorGoodsList}) : super(key: key);
-
+  BuildContext context;
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     return Container(
       child: Column(
         children: <Widget>[_firstRow(), _otherGoods()],
@@ -473,6 +480,7 @@ class FloorContent extends StatelessWidget {
       child: InkWell(
         onTap: () {
           print('点击了楼层');
+          Application.router.navigateTo(context, "/detail?id=${goods['goodsId']}");
         },
         child: Image.network(goods['image']),
       ),
