@@ -4,6 +4,7 @@ import '../service/service_method.dart';
 import 'dart:convert';
 
 class DetailsInfoProvide with ChangeNotifier {
+
   DetailsModel goodsInfo = null;
   
   // 从后台获取商品信息
