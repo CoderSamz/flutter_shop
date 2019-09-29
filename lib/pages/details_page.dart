@@ -3,6 +3,7 @@ import 'package:provide/provide.dart';
 import '../provide/details_info.dart';
 import './details_page/details_top_area.dart';
 import './details_page/details_explain.dart';
+import './details_page/details_tabbar.dart';
 
 class DetailsPage extends StatelessWidget {
 
@@ -32,9 +33,8 @@ class DetailsPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   DetailsTopArea(),
-                  //关键代码------start
-                  DetailsExplain()
-                  //关键代码------end
+                  DetailsExplain(),
+                  DetailsTabBar()
                 ],
               ),
             );
