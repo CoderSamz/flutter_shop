@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import '../provide/details_info.dart';
 import './details_page/details_top_area.dart';
+import './details_page/details_explain.dart';
 
 class DetailsPage extends StatelessWidget {
 
@@ -30,8 +31,9 @@ class DetailsPage extends StatelessWidget {
             return Container(
               child: Column(
                 children: <Widget>[
-                  //关键代码------start
                   DetailsTopArea(),
+                  //关键代码------start
+                  DetailsExplain()
                   //关键代码------end
                 ],
               ),
