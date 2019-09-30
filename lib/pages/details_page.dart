@@ -5,21 +5,19 @@ import './details_page/details_top_area.dart';
 import './details_page/details_explain.dart';
 import './details_page/details_tabbar.dart';
 import './details_page/details_web.dart';
+import './details_page/details_bottom.dart';
 
 class DetailsPage extends StatelessWidget {
-
   final String goodsId;
   DetailsPage(this.goodsId);
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: (){
+          onPressed: () {
             print('返回上一页');
             Navigator.pop(context);
           },
@@ -28,21 +26,28 @@ class DetailsPage extends StatelessWidget {
       ),
       body: FutureBuilder(
         future: _getBackInfo(context),
-        builder: (context, snapshot){
-          if(snapshot.hasData) {
-            return Container(
-              child: ListView(
-                children: <Widget>[
-                  DetailsTopArea(),
-                  DetailsExplain(),
-                  DetailsTabBar(),
-                  //关键代码-------------start
-                  DetailsWeb()
-                  //关键代码-------------end
-                ],
-              ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            //关键代码-------------start
+            return Stack(
+              children: <Widget>[
+                ListView(
+                  children: <Widget>[
+                    DetailsTopArea(),
+                    DetailsExplain(),
+                    DetailsTabBar(),
+                    DetailsWeb()
+                  ],
+                ),
+                Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: DetailsBottom()
+                )
+              ],
             );
-          }else {
+            //关键代码-------------end
+          } else {
             return Text('加载中.........');
           }
         },
