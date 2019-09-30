@@ -32,18 +32,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    //-------------------主要代码start
     final router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
-    //-------------------主要代码end
     return Container(
       child: MaterialApp(
         title: '百姓生活+',
         debugShowCheckedModeBanner: false,
-        //-------------------主要代码start
         onGenerateRoute: Application.router.generator,
-        //-------------------主要代码end
         theme: ThemeData(primaryColor: Colors.pink),
         home: IndexPage(),
       ),
