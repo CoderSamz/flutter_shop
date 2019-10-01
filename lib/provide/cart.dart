@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -30,9 +28,7 @@ class CartProvide with ChangeNotifier {
       // 如果存在，数量进行+1操作
       if(item['goodsId'] == goodsId) {
         tempList[ival]['count'] = item['count'] + 1;
-        //关键代码-----------------start
         cartList[ival].count++;
-        //关键代码-----------------end
         isHave = true;
       }
       ival += 1;
@@ -40,7 +36,7 @@ class CartProvide with ChangeNotifier {
 
     // 如果没有，进行增加
     if(!isHave) {
-      //关键代码-----------------start
+
       Map<String, dynamic> newGoods = {
         'goodsId':goodsId,
         'goodsName':goodsName,
@@ -50,7 +46,7 @@ class CartProvide with ChangeNotifier {
       };
       tempList.add(newGoods);
       cartList.add(new CartInfoModel.fromJson(newGoods));
-      //关键代码-----------------end
+
     }
 
     // 把字符串进行encode操作
@@ -91,43 +87,3 @@ class CartProvide with ChangeNotifier {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
