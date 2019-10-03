@@ -28,7 +28,7 @@ class CartProvide with ChangeNotifier {
       // 如果存在，数量进行+1操作
       if(item['goodsId'] == goodsId) {
         tempList[ival]['count'] = item['count'] + 1;
-        cartList[ival].count++;
+        cartList[ival].count += 1;
         isHave = true;
       }
       ival += 1;
