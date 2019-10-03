@@ -5,7 +5,14 @@ import '../model/cartInfo.dart';
 
 class CartProvide with ChangeNotifier {
   String cartString = "[]";
+  // 商品列表对象
   List<CartInfoModel> cartList = [];
+  //新代码----------start
+  // 总价格
+  double allPrice = 0;
+  // 商品总数量
+  int allGoodsCount = 0;
+  //新代码----------end
 
   // 添加商品到购物车
   save(goodsId, goodsName, count, price, images) async {
@@ -71,7 +78,17 @@ class CartProvide with ChangeNotifier {
       cartList = [];
     }else{
       List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+      //---------修改代码------start-------------
+      allPrice = 0;
+      allGoodsCount = 0;
+      //---------修改代码------end-------------
       tempList.forEach((item){
+        //---------修改代码------start-------------
+        if(item['isCheck']){
+          allPrice += (item['count'] * item['price']);
+          allGoodsCount += item['count'];
+        }
+        //---------修改代码------end-------------
         cartList.add(new CartInfoModel.fromJson(item));
       });
     }

@@ -20,7 +20,6 @@ class CartPage extends StatelessWidget {
 
             return Stack(
               children: <Widget>[
-                //主要代码--------------------start--------
                 Provide<CartProvide>(
                     builder: (context, child, childCategory){
 
@@ -36,7 +35,6 @@ class CartPage extends StatelessWidget {
 
                     },
                 ),
-                //主要代码--------------------end--------
                 Positioned(
                   bottom: 0,
                   left: 0,

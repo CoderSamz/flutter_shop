@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
+import '../../provide/cart.dart';
 
 class CartBottom extends StatelessWidget {
   @override
@@ -10,16 +12,18 @@ class CartBottom extends StatelessWidget {
       width: ScreenUtil().setWidth(750),
       child: Row(
         children: <Widget>[
-          selectAllButton(),
-          allPriceArea(),
-          goButton()
+          //修改部分--------start----------
+          selectAllButton(context),
+          allPriceArea(context),
+          goButton(context)
+          //修改部分--------end----------
         ],
       ),
     );
   }
 
   // 全选按钮
-  Widget selectAllButton() {
+  Widget selectAllButton(context) {
     return Container(
       child: Row(
         children: <Widget>[
@@ -35,7 +39,10 @@ class CartBottom extends StatelessWidget {
   }
 
   // 合计区域
-  Widget allPriceArea() {
+  Widget allPriceArea(context) {
+    //修改代码---------------start------------
+    double allPrice = Provide.value<CartProvide>(context).allPrice;
+    //修改代码---------------end------------
     return Container(
       width: ScreenUtil().setWidth(430),
       alignment: Alignment.centerRight,
@@ -56,11 +63,15 @@ class CartBottom extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 width: ScreenUtil().setWidth(150),
+                //修改代码---------------start------------
                 child: Text(
-                  '￥1922',
+                  '￥${allPrice}',
                   style: TextStyle(
-                      fontSize: ScreenUtil().setSp(36), color: Colors.red),
+                      fontSize: ScreenUtil().setSp(36),
+                      color: Colors.red
+                  ),
                 ),
+                //修改代码---------------end------------
               ),
             ],
           ),
@@ -81,7 +92,10 @@ class CartBottom extends StatelessWidget {
   }
 
   // 结算按钮
-  Widget goButton() {
+  Widget goButton(context) {
+    //修改代码---------------start------------
+    int allGoodsCount = Provide.value<CartProvide>(context).allGoodsCount;
+    //修改代码---------------end------------
     return Container(
       width: ScreenUtil().setWidth(160),
       padding: EdgeInsets.only(left: 10),
@@ -94,12 +108,14 @@ class CartBottom extends StatelessWidget {
             color: Colors.red,
             borderRadius: BorderRadius.circular(3.0)
           ),
+          //修改代码---------------start------------
           child: Text(
-            '结算(6)',
+            '结算(${allGoodsCount})',
             style: TextStyle(
               color: Colors.white
             ),
           ),
+          //修改代码---------------end------------
         ),
 
       ),

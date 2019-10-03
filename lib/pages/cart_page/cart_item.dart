@@ -87,9 +87,7 @@ class CartItem extends StatelessWidget {
           Container(
             child: InkWell(
               onTap: (){
-                //主要代码---------------start----------
                 Provide.value<CartProvide>(context).deleteOneGoods(item.goodsId);
-                //主要代码---------------end----------
               },
               child: Icon(
                 Icons.delete_forever,
