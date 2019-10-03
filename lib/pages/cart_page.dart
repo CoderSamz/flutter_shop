@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/pages/cart_page/cart_item.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
 import '../provide/cart.dart';
 import './cart_page/cart_bottom.dart';
@@ -55,36 +54,6 @@ class _CartPageState extends State<CartPage> {
     await Provide.value<CartProvide>(context).getCartInfo();
     return 'end';
   }
-
- /* // 增加方法
-  void _add() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String temp = '技术胖是最胖的';
-    testList.add(temp);
-    prefs.setStringList('testInfo', testList);
-    _show();
-
-  }
-
-  // 显示方法
-  void _show() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      if(prefs.getStringList('testInfo') != null) {
-        testList = prefs.getStringList('testInfo');
-      }
-    });
-  }
-
-  // 删除方法
-  void _clear() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-//    prefs.clear(); // 全部清空
-    prefs.remove('testInfo'); // 删除key键
-    setState(() {
-      testList = [];
-    });
-  }*/
 }
 
 

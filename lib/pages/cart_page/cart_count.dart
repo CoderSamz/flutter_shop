@@ -15,13 +15,13 @@ class CartCount extends StatelessWidget {
         ),
       ),
       child: Row(
-        //关键代码----------------start
+
         children: <Widget>[
           _reduceButton(),
           _countArea(),
           _addButton()
         ],
-        //关键代码----------------end
+
       ),
     );
   }
