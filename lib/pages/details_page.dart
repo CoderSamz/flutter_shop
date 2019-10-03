@@ -28,7 +28,7 @@ class DetailsPage extends StatelessWidget {
         future: _getBackInfo(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            //关键代码-------------start
+
             return Stack(
               children: <Widget>[
                 ListView(
@@ -46,7 +46,7 @@ class DetailsPage extends StatelessWidget {
                 )
               ],
             );
-            //关键代码-------------end
+
           } else {
             return Text('加载中.........');
           }

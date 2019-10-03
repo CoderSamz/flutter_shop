@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/pages/cart_page/cart_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
 import '../provide/cart.dart';
@@ -25,15 +26,13 @@ class _CartPageState extends State<CartPage> {
         builder: (context, snapshot){
           List cartList = Provide.value<CartProvide>(context).cartList;
           if(snapshot.hasData && cartList != null){
-            //关键代码-------------------start
+
             return Stack(
               children: <Widget>[
                 ListView.builder(
                   itemCount: cartList.length,
                   itemBuilder: (context, index){
-                    return ListTile(
-                      title: Text(cartList[index].goodsName),
-                    );
+                    return CartItem(cartList[index]);
                   },
                 ),
                 Positioned(
@@ -43,7 +42,7 @@ class _CartPageState extends State<CartPage> {
                 )
               ],
             );
-            //关键代码-------------------end
+
           }else{
             return Text('正在加载');
           }

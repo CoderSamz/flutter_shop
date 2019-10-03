@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../model/cartInfo.dart';
+import './cart_count.dart';
 
 class CartItem extends StatelessWidget {
 
@@ -23,7 +24,10 @@ class CartItem extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-
+          _cartCheckButton(item),
+          _cartImage(item),
+          _cartGoodsName(item),
+          _cartPrice(item)
         ],
       ),
     );
@@ -63,10 +67,10 @@ class CartItem extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Column(
         children: <Widget>[
-          _cartCheckButton(item),
-          _cartImage(item),
-          _cartGoodsName(item),
-
+          Text(item.goodsName),
+          //关键代码---------start
+          CartCount()
+          //关键代码---------end
         ],
       ),
     );
