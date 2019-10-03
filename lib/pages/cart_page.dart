@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
 import '../provide/cart.dart';
+import './cart_page/cart_bottom.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    _show(); // 每次进入前进行显示
+//    _show(); // 每次进入前进行显示
     return Scaffold(
       appBar: AppBar(
         title: Text('购物车'),
@@ -23,15 +24,26 @@ class _CartPageState extends State<CartPage> {
         future: _getCartInfo(context),
         builder: (context, snapshot){
           List cartList = Provide.value<CartProvide>(context).cartList;
-          if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: cartList.length,
-              itemBuilder: (context, index){
-                return ListTile(
-                  title: Text(cartList[index].goodsName),
-                );
-              },
+          if(snapshot.hasData && cartList != null){
+            //关键代码-------------------start
+            return Stack(
+              children: <Widget>[
+                ListView.builder(
+                  itemCount: cartList.length,
+                  itemBuilder: (context, index){
+                    return ListTile(
+                      title: Text(cartList[index].goodsName),
+                    );
+                  },
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: CartBottom(),
+                )
+              ],
             );
+            //关键代码-------------------end
           }else{
             return Text('正在加载');
           }
@@ -45,7 +57,7 @@ class _CartPageState extends State<CartPage> {
     return 'end';
   }
 
-  // 增加方法
+ /* // 增加方法
   void _add() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String temp = '技术胖是最胖的';
@@ -73,7 +85,7 @@ class _CartPageState extends State<CartPage> {
     setState(() {
       testList = [];
     });
-  }
+  }*/
 }
 
 
