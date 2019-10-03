@@ -7,12 +7,14 @@ class CartProvide with ChangeNotifier {
   String cartString = "[]";
   // 商品列表对象
   List<CartInfoModel> cartList = [];
-  //新代码----------start
+
   // 总价格
   double allPrice = 0;
   // 商品总数量
   int allGoodsCount = 0;
-  //新代码----------end
+  // 是否全选
+  bool isAllCheck = true;
+
 
   // 添加商品到购物车
   save(goodsId, goodsName, count, price, images) async {
@@ -78,17 +80,21 @@ class CartProvide with ChangeNotifier {
       cartList = [];
     }else{
       List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
-      //---------修改代码------start-------------
       allPrice = 0;
       allGoodsCount = 0;
-      //---------修改代码------end-------------
+      //--------新增代码----------start--------
+      isAllCheck = true;
+      //--------新增代码----------end--------
+
       tempList.forEach((item){
-        //---------修改代码------start-------------
+        //--------修改代码----------start--------
         if(item['isCheck']){
           allPrice += (item['count'] * item['price']);
           allGoodsCount += item['count'];
+        }else{
+          isAllCheck = false;
         }
-        //---------修改代码------end-------------
+        //--------修改代码----------end--------
         cartList.add(new CartInfoModel.fromJson(item));
       });
     }
@@ -121,6 +127,57 @@ class CartProvide with ChangeNotifier {
     tempList.removeAt(delIndex);
     cartString = json.encode(tempList).toString();
     // 给本地化数据重新赋值
+    prefs.setString('cartInfo', cartString);
+    await getCartInfo();
+  }
+
+  changeCheckState(CartInfoModel cartItem) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    // 声明临时List，用于循环
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+    // 循环使用索引
+    int tempIndex = 0;
+    // 需要修改的索引
+    int changeIndex = 0;
+
+    tempList.forEach((item){
+      if(item['goodsId'] == cartItem.goodsId) {
+        // 找到索引进行复制
+        changeIndex = tempIndex;
+      }
+      tempIndex += 1;
+    });
+
+    // 把对象变成Map值
+    tempList[changeIndex] = cartItem.toJson();
+    // 变成字符串
+    cartString = json.encode(tempList).toString();
+    // 进行持久化
+    prefs.setString('cartInfo', cartString);
+    // 重新读取列表
+    await getCartInfo();
+
+  }
+
+  // 点击全选按钮操作
+  changeAllCheckButtonState(bool isCheck) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+    // 新建一个List, 用于组成新的持久化数据。
+    List<Map> newList = [];
+
+    for(var item in tempList) {
+      // 复制新的变量，因为Dart不让循环时改变原值
+      var newItem = item;
+      newItem['isCheck'] = isCheck;
+      newList.add(newItem);
+    }
+
+    // 形成字符串
+    cartString = json.encode(newList).toString();
+    // 进行持久化
     prefs.setString('cartInfo', cartString);
     await getCartInfo();
   }
