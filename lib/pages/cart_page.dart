@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/pages/cart_page/cart_item.dart';
 import 'package:provide/provide.dart';
 import '../provide/cart.dart';
+import './cart_page/cart_item.dart';
 import './cart_page/cart_bottom.dart';
 
-class CartPage extends StatefulWidget {
-  @override
-  _CartPageState createState() => _CartPageState();
-}
-
-class _CartPageState extends State<CartPage> {
-
-  List<String> testList = [];
+class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    _show(); // 每次进入前进行显示
     return Scaffold(
       appBar: AppBar(
         title: Text('购物车'),
@@ -28,12 +20,23 @@ class _CartPageState extends State<CartPage> {
 
             return Stack(
               children: <Widget>[
-                ListView.builder(
-                  itemCount: cartList.length,
-                  itemBuilder: (context, index){
-                    return CartItem(cartList[index]);
-                  },
+                //主要代码--------------------start--------
+                Provide<CartProvide>(
+                    builder: (context, child, childCategory){
+
+                      cartList = Provide.value<CartProvide>(context).cartList;
+                      print(cartList);
+
+                      return ListView.builder(
+                          itemCount: cartList.length,
+                          itemBuilder: (context, index){
+                            return CartItem(cartList[index]);
+                          },
+                      );
+
+                    },
                 ),
+                //主要代码--------------------end--------
                 Positioned(
                   bottom: 0,
                   left: 0,

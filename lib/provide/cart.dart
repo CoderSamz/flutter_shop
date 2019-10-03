@@ -43,9 +43,7 @@ class CartProvide with ChangeNotifier {
         'count':count,
         'price':price,
         'images':images,
-        //-----新添加代码-----start
         'isCheck': true  //是否已经选择
-        //-----新添加代码-----end
       };
       tempList.add(newGoods);
       cartList.add(new CartInfoModel.fromJson(newGoods));
@@ -87,6 +85,27 @@ class CartProvide with ChangeNotifier {
     prefs.remove('cartInfo');
     print('清空完成...........');
     notifyListeners();
+  }
+
+  // 删除单个购物车商品
+  deleteOneGoods(String goodsId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+
+    int tempIndex = 0;
+    int delIndex = 0;
+    tempList.forEach((item){
+      if(item['goodsId'] == goodsId) {
+        delIndex = tempIndex;
+      }
+      tempIndex += 1;
+    });
+    tempList.removeAt(delIndex);
+    cartString = json.encode(tempList).toString();
+    // 给本地化数据重新赋值
+    prefs.setString('cartInfo', cartString);
+    await getCartInfo();
   }
 
 }

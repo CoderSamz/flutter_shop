@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../model/cartInfo.dart';
 import './cart_count.dart';
+import 'package:provide/provide.dart';
+import '../../provide/cart.dart';
 
 class CartItem extends StatelessWidget {
 
@@ -27,7 +29,7 @@ class CartItem extends StatelessWidget {
           _cartCheckButton(item),
           _cartImage(item),
           _cartGoodsName(item),
-          _cartPrice(item)
+          _cartPrice(context, item)
         ],
       ),
     );
@@ -37,9 +39,7 @@ class CartItem extends StatelessWidget {
   Widget _cartCheckButton(item) {
     return Container(
       child: Checkbox(
-        //修改部分--------start----
         value: item.isCheck,
-        //修改部分--------end----
         activeColor: Colors.pink,
         onChanged: (bool val){},
       ),
@@ -77,7 +77,7 @@ class CartItem extends StatelessWidget {
   }
 
   // 商品价格
-  Widget _cartPrice(item){
+  Widget _cartPrice(context, item){
     return Container(
       width: ScreenUtil().setWidth(150),
       alignment: Alignment.centerRight,
@@ -86,7 +86,11 @@ class CartItem extends StatelessWidget {
           Text('￥${item.price}'),
           Container(
             child: InkWell(
-              onTap: (){},
+              onTap: (){
+                //主要代码---------------start----------
+                Provide.value<CartProvide>(context).deleteOneGoods(item.goodsId);
+                //主要代码---------------end----------
+              },
               child: Icon(
                 Icons.delete_forever,
                 color: Colors.black26,
