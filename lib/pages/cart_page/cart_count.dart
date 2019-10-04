@@ -5,10 +5,9 @@ import '../../provide/cart.dart';
 
 class CartCount extends StatelessWidget {
 
-  //--------------新增加代码------------start--------
   var item;
   CartCount(this.item);
-  //--------------新增加代码------------end--------
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,11 +22,11 @@ class CartCount extends StatelessWidget {
       child: Row(
 
         children: <Widget>[
-          //--------------修改代码------------start--------
+
           _reduceButton(context),
           _countArea(),
           _addButton(context)
-          //--------------修改代码------------end--------
+
         ],
 
       ),
@@ -38,18 +37,16 @@ class CartCount extends StatelessWidget {
   Widget _reduceButton(context) {
     return InkWell(
       onTap: (){
-        //--------------新增加代码------------start--------
+
         Provide.value<CartProvide>(context).addOrReduceAction(item, 'reduce');
-        //--------------新增加代码------------end--------
+
       },
       child: Container(
         width: ScreenUtil().setWidth(45),
         height: ScreenUtil().setHeight(45),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          //--------------修改代码------------start--------
           color: item.count > 1 ? Colors.white : Colors.black12,
-          //--------------修改代码------------end--------
           border: Border(
             right: BorderSide(
               width: 1,
@@ -57,9 +54,7 @@ class CartCount extends StatelessWidget {
             )
           )
         ),
-        //--------------修改代码------------start--------
         child: item.count > 1 ? Text('-') : Text(' '),
-        //--------------修改代码------------end--------
       ),
     );
   }

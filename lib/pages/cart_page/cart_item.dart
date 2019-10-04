@@ -73,9 +73,7 @@ class CartItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text(item.goodsName),
-          //-----------修改关键代码------start-------
           CartCount(item)
-          //-----------修改关键代码------start-------
         ],
       ),
     );
