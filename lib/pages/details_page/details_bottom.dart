@@ -24,7 +24,6 @@ class DetailsBottom extends StatelessWidget {
       height: ScreenUtil().setHeight(80),
       child: Row(
         children: <Widget>[
-          // 关键代码--------------------start--------------
           Stack(
             children: <Widget>[
               InkWell(
@@ -68,7 +67,6 @@ class DetailsBottom extends StatelessWidget {
               ),
             ],
           ),
-          // 关键代码--------------------end--------------
           InkWell(
             onTap: () async {
               await Provide.value<CartProvide>(context).save(goodsId, goodsName, count, price, images);
