@@ -63,9 +63,9 @@ class CartCount extends StatelessWidget {
   Widget _addButton(context) {
     return InkWell(
       onTap: (){
-        //--------------新增加代码------------start--------
+
         Provide.value<CartProvide>(context).addOrReduceAction(item, 'add');
-        //--------------新增加代码------------end--------
+
       },
       child: Container(
         width: ScreenUtil().setWidth(45),
@@ -92,9 +92,9 @@ class CartCount extends StatelessWidget {
       height: ScreenUtil().setHeight(45),
       alignment: Alignment.center,
       color: Colors.white,
-      //--------------修改代码------------start--------
+
       child: Text('${item.count}'),
-      //--------------修改代码------------end--------
+
     );
   }
 

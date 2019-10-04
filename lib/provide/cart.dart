@@ -32,6 +32,11 @@ class CartProvide with ChangeNotifier {
     var isHave = false;
     // 用于进行循环的索引使用
     int ival = 0;
+    //-----------------关键代码---------start---------
+    allPrice = 0;
+    // 把商品总数量设置为0
+    allGoodsCount = 0;
+    //-----------------关键代码---------end---------
     // 进行循环，找出是否已经存在该商品
     tempList.forEach((item){
       // 如果存在，数量进行+1操作
@@ -40,6 +45,13 @@ class CartProvide with ChangeNotifier {
         cartList[ival].count += 1;
         isHave = true;
       }
+      //-----------------关键代码---------start---------
+      if(item['isCheck']){
+        allPrice += (cartList[ival].price * cartList[ival].count);
+        allGoodsCount += cartList[ival].count;
+      }
+      //-----------------关键代码---------end---------
+
       ival += 1;
     });
 
@@ -56,6 +68,10 @@ class CartProvide with ChangeNotifier {
       };
       tempList.add(newGoods);
       cartList.add(new CartInfoModel.fromJson(newGoods));
+      //-----------------关键代码---------start---------
+      allPrice += (count * price);
+      allGoodsCount += count;
+      //-----------------关键代码---------end---------
 
     }
 
