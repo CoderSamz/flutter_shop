@@ -41,12 +41,10 @@ class CartItem extends StatelessWidget {
       child: Checkbox(
         value: item.isCheck,
         activeColor: Colors.pink,
-        //-------新增代码--------start---------
         onChanged: (bool val){
           item.isCheck = val;
           Provide.value<CartProvide>(context).changeCheckState(item);
         },
-        //-------新增代码--------end---------
       ),
     );
   }
@@ -75,7 +73,9 @@ class CartItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text(item.goodsName),
-          CartCount()
+          //-----------修改关键代码------start-------
+          CartCount(item)
+          //-----------修改关键代码------start-------
         ],
       ),
     );

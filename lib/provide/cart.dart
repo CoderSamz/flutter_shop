@@ -82,19 +82,17 @@ class CartProvide with ChangeNotifier {
       List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
       allPrice = 0;
       allGoodsCount = 0;
-      //--------新增代码----------start--------
       isAllCheck = true;
-      //--------新增代码----------end--------
 
       tempList.forEach((item){
-        //--------修改代码----------start--------
+
         if(item['isCheck']){
           allPrice += (item['count'] * item['price']);
           allGoodsCount += item['count'];
         }else{
           isAllCheck = false;
         }
-        //--------修改代码----------end--------
+
         cartList.add(new CartInfoModel.fromJson(item));
       });
     }
@@ -171,6 +169,7 @@ class CartProvide with ChangeNotifier {
     for(var item in tempList) {
       // 复制新的变量，因为Dart不让循环时改变原值
       var newItem = item;
+      // 改变选择状态
       newItem['isCheck'] = isCheck;
       newList.add(newItem);
     }
@@ -180,6 +179,33 @@ class CartProvide with ChangeNotifier {
     // 进行持久化
     prefs.setString('cartInfo', cartString);
     await getCartInfo();
+  }
+
+  // 商品数量加减
+  addOrReduceAction(var cartItem, String todo) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+    int tempIndex = 0;
+    int changeIndex = 0;
+    tempList.forEach((item){
+      if(item['goodsId'] == cartItem.goodsId) {
+        changeIndex = tempIndex;
+      }
+      tempIndex += 1;
+    });
+
+    if(todo == 'add') {
+      cartItem.count += 1;
+    }else if(cartItem.count > 1){
+      cartItem.count -= 1;
+    }
+
+    tempList[changeIndex] = cartItem.toJson();
+    cartString = json.encode(tempList).toString();
+    prefs.setString('cartInfo', cartString);
+    await getCartInfo();
+
   }
 
 }
