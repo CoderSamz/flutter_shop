@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('百姓生活+'),
+        title: Text('生活+'),
       ),
       body: FutureBuilder(
           future: getHomePageContent(),
