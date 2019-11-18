@@ -19,23 +19,29 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
 //    _getCategory();
-    return Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('商品分类'),
+      ),
+      body: Container(
 //      child: LeftCategoryNav(),
 //      child: Center(
 //        child: Text('分类页面'),
 //      ),
-      child: Row(
-        children: <Widget>[
-          LeftCategoryNav(),
-          Column(
-            children: <Widget>[
-              RightCategoryNav(),
-              CategoryGoodsList()
-            ],
-          ),
-        ],
+        child: Row(
+          children: <Widget>[
+            LeftCategoryNav(),
+            Column(
+              children: <Widget>[
+                RightCategoryNav(),
+                CategoryGoodsList()
+              ],
+            ),
+          ],
+        ),
       ),
     );
+
   }
 
 
